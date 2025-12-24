@@ -9,7 +9,36 @@ A Python-based AI agent that researches topics using a Plan-Execute-Summarize wo
 * **Fault Tolerance:** Handles tool failures/timeouts gracefully without crashing.
 
 ## Architecture
-`Planner` -> `Researcher (Loop)` -> `Summarizer` -> `End`
+graph TD
+    %% Nodes
+    Start([Start]) --> Planner[Planner Node]
+    Planner -->|"Generate Search Steps"| Worker[Worker Node]
+    
+    %% The Research Loop
+    subgraph Research_Loop [Iterative Research Process]
+        Worker -->|"Execute Top Step"| Tools{Select Tool}
+        Tools -->|"Define/History"| Wiki[Wikipedia Tool]
+        Tools -->|"General Query"| Web[DuckDuckGo Tool]
+        
+        Wiki --> Log[Log Result]
+        Web --> Log
+        
+        Log --> Router{More Steps?}
+    end
+    
+    %% Conditional Logic
+    Router -- "Yes (Loop)" --> Worker
+    Router -- "No (Done)" --> Writer[Writer Node]
+    
+    %% Final Output
+    Writer -->|"Synthesize Answer"| End([End])
+    
+    %% Styling
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style End fill:#f9f,stroke:#333,stroke-width:2px
+    style Planner fill:#bbf,stroke:#333
+    style Worker fill:#bfb,stroke:#333
+    style Writer fill:#bfb,stroke:#333
 
 ## Setup
 
@@ -33,4 +62,5 @@ A Python-based AI agent that researches topics using a Plan-Execute-Summarize wo
 4.  **Run**
     ```bash
     python main.py
+
     ```
