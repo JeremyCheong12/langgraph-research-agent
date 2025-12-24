@@ -9,6 +9,9 @@ A Python-based AI agent that researches topics using a Plan-Execute-Summarize wo
 * **Fault Tolerance:** Handles tool failures/timeouts gracefully without crashing.
 
 ## Architecture
+## Architecture
+
+```mermaid
 graph TD
     %% Nodes
     Start([Start]) --> Planner[Planner Node]
@@ -39,6 +42,7 @@ graph TD
     style Planner fill:#bbf,stroke:#333
     style Worker fill:#bfb,stroke:#333
     style Writer fill:#bfb,stroke:#333
+```
 
 ## Setup
 
@@ -62,4 +66,5 @@ graph TD
 4.  **Run**
     ```bash
     python main.py
+
     ```
