@@ -62,5 +62,4 @@ graph TD
 4.  **Run**
     ```bash
     python main.py
-
     ```
